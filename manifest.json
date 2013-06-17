@@ -4,14 +4,17 @@
     "manifest_version": 2,
     "description": "To temporarily store tabs(URLs) to a set. You can open them later, or share with others.",
     "icons": {
-        "16": "Linky-16.png",
-        "48": "Linky-48.png",
-        "128": "Linky-128.png"
+        "16": "icons/Linky-16.png",
+        "48": "icons/Linky-48.png",
+        "128": "icons/Linky-128.png"
     },
     "browser_action": {
-        "default_icon": "Linky-19.png",
+        "default_icon": "icons/Linky-19.png",
         "default_popup": "popup.html",
         "default_title": "'Linky"
+    },
+    "sandbox": {
+        "pages": ["sandbox.html"]
     },
     "permissions": ["tabs"]
 }

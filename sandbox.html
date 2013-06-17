@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/scripts/lib/shotenjin.js" ></script>
+</head>
+<body>
+
+<!-- template -->
+
+<script id="tpl_list" type="text/x-shotenjin-template">
+    <ul>
+        <?js for (var i = 0, n = sets.length; i < n; i++) { ?>
+        <li>#{sets[i].name}</li>
+        <?js } ?>
+    </ul>
+</script>
+
+<script>
+
+    var $ = function(id) { return document.getElementById(id); };
+
+    // Set up message event handler:
+    window.addEventListener('message', function(event) {
+
+        console.log(template);
+
+        var command = event.data.command,
+                template = $(event.data.templateName).innerHTML,
+                result = "invalid request";
+
+        // if we don't know the templateName requested, return an error message
+        if (!template) {
+            result = 'Unknown template: ' + event.data.templateName;
+        } else {
+            switch(command) {
+                case 'render':
+                    result = Shotenjin.render(template, event.data.context);
+                    break;
+            }
+        }
+        event.source.postMessage({'result': result}, event.origin);
+    });
+
+</script>
+</body>
+</html>
