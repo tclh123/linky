@@ -8,11 +8,30 @@
 <!-- template -->
 
 <script id="tpl_list" type="text/x-shotenjin-template">
-    <ul>
-        <?js for (var i = 0, n = sets.length; i < n; i++) { ?>
-        <li>#{sets[i].name}</li>
-        <?js } ?>
-    </ul>
+    <?js for (var i = 0; i < sets.length; i++) { ?>
+    <div class="set">
+        <div class="set_title">
+            #{sets[i].name}
+            <span class="actions">
+                <a href="#">All</a>
+                <a href="#" id="set-put-#{sets[i].id}" data-setId="#{sets[i].id}">Put</a>
+                <a href="#">Push</a>
+                <a href="#">Del</a>
+            </span>
+        </div>
+        <div class="set_content">
+            <?js for (var j = 0; j<sets[i].tabs.length; j++) { ?>
+                <div class="tab">
+                    <a target="_blank" href="#{sets[i].tabs[j].url}">#{sets[i].tabs[j].url}</a>
+                    <span class="actions">
+                        <a href="#">Pop</a>
+                        <a href="#" id="tab-del-#{sets[i].id}-#{j}" data-setId="#{sets[i].id}" data-tabId="#{j}">Del</a>
+                    </span>
+                </div>
+            <?js } ?>
+        </div>
+    </div>
+    <?js } ?>
 </script>
 
 <script>

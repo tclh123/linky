@@ -1,5 +1,49 @@
 body {
     font-family: arial, sans-serif;
-    line-height: 16px;
-    width: 250px;
+    font-size: 16px;
+    line-height: 20px;
+    width: 400px;
+    /*height: 800px;*/
+}
+
+.set {
+
+}
+.set_title {
+
+}
+.set_title .actions a {
+    color: hotpink;
+}
+
+.set_content {
+
+}
+
+.actions {
+    float: right;
+    font-size: 14px;
+}
+.actions a {
+    margin: 0 0 0 5px;
+}
+
+.tab {
+
+}
+.tab a {
+    color: #41C8F0; /*blue*/
+}
+.tab .actions a {
+    color: hotpink;
+}
+
+/*/////////////*/
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    background: none;
+    text-decoration: underline;
 }
