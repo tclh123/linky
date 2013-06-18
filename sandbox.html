@@ -13,9 +13,9 @@
         <div class="set_title">
             #{sets[i].name}
             <span class="actions">
-                <a href="#">All</a>
+                <a href="#" id="set-all-#{sets[i].id}" data-setId="#{sets[i].id}">All</a>
                 <a href="#" id="set-put-#{sets[i].id}" data-setId="#{sets[i].id}">Put</a>
-                <a href="#">Push</a>
+                <a href="#" id="set-push-#{sets[i].id}" data-setId="#{sets[i].id}">Push</a>
                 <a href="#">Del</a>
             </span>
         </div>
@@ -24,7 +24,7 @@
                 <div class="tab">
                     <a target="_blank" href="#{sets[i].tabs[j].url}">#{sets[i].tabs[j].url}</a>
                     <span class="actions">
-                        <a href="#">Pop</a>
+                        <a href="#" id="tab-pop-#{sets[i].id}-#{j}" data-setId="#{sets[i].id}" data-tabId="#{j}">Pop</a>
                         <a href="#" id="tab-del-#{sets[i].id}-#{j}" data-setId="#{sets[i].id}" data-tabId="#{j}">Del</a>
                     </span>
                 </div>

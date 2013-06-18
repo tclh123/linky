@@ -33,10 +33,22 @@ window.addEventListener('message', function(event) {
             doSetPut(e.target.getAttribute('data-setId'));
         }, false);
 
+        $(_formatActionId('set', 'push', context.sets[i].id)).addEventListener('click', function(e) {
+            doSetPush(e.target.getAttribute('data-setId'));
+        }, false);
+
+        $(_formatActionId('set', 'all', context.sets[i].id)).addEventListener('click', function(e) {
+            doSetAll(e.target.getAttribute('data-setId'));
+        }, false);
+
         for(var j=0; j<context.sets[i].tabs.length; j++) {
-            console.log(_formatActionId('tab', 'del', context.sets[i].id, j));
+//            console.log(_formatActionId('tab', 'del', context.sets[i].id, j));
             $(_formatActionId('tab', 'del', context.sets[i].id, j)).addEventListener('click', function(e) {
                 doTabDel(e.target.getAttribute('data-setId'), e.target.getAttribute('data-tabId'));
+            }, false);
+
+            $(_formatActionId('tab', 'pop', context.sets[i].id, j)).addEventListener('click', function(e) {
+                doTabPop(e.target.getAttribute('data-setId'), e.target.getAttribute('data-tabId'));
             }, false);
         }
     }
@@ -47,7 +59,7 @@ window.addEventListener('message', function(event) {
 
 function init() {
 
-    // Test Data TODO:
+    // Test Data TODO: 支持 set的增删，重命名等
 //    var context = {
 //        sets: [
 //            {
@@ -141,10 +153,67 @@ function doSetPut(setId) {
     }
 }
 
+function doSetPush(setId) {
+    var key = _formatKey('set', setId);
+    if(localStorage[key]) {
+        var set = JSON.parse(localStorage[key]);
+        chrome.tabs.getSelected(null, function(tab) {
+            set.tabs.push({
+                url: tab.url
+            });
+            localStorage[key] = JSON.stringify(set);
+            chrome.tabs.remove(tab.id, function() {
+                updateView();
+            });
+        });
+    }
+}
+
+function doSetAll(setId) {
+    var key = _formatKey('set', setId);
+    if(localStorage[key]) {
+        var set = JSON.parse(localStorage[key]);
+
+        // 预留一个新标签页，使得关闭所有标签后不会太突兀...
+        chrome.tabs.create({});
+
+        chrome.windows.get(chrome.windows.WINDOW_ID_CURRENT, {populate: true}, function(window) {
+            // for each tab
+            for (i in window.tabs) {
+                if (window.tabs[i].url == "chrome://newtab/") {
+                    continue;
+                }
+
+                set.tabs.push({
+                    url: window.tabs[i].url
+                });
+                localStorage[key] = JSON.stringify(set);
+                chrome.tabs.remove(window.tabs[i].id, function() {
+                });
+            }
+
+            updateView();
+        });
+    }
+}
+
 function doTabDel(setId, tabIndex) {
     var key = _formatKey('set', setId);
     if(localStorage[key]) {
         var set = JSON.parse(localStorage[key]);
+        set.tabs.splice(tabIndex, 1);
+        localStorage[key] = JSON.stringify(set);
+        updateView();
+    }
+}
+
+function doTabPop(setId, tabIndex) {
+    var key = _formatKey('set', setId);
+    if(localStorage[key]) {
+        var set = JSON.parse(localStorage[key]);
+
+        chrome.tabs.create({ url: set.tabs[tabIndex].url });
+
         set.tabs.splice(tabIndex, 1);
         localStorage[key] = JSON.stringify(set);
         updateView();
