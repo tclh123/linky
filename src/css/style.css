@@ -1,5 +1,9 @@
+/*@import url(http://fonts.googleapis.com/css?family=Helvetica+Neue);*/
+
 body {
     font-family: arial, sans-serif;
+    /*font-family: HelveticaNeue-condensed, sans-serif;*/
+
     font-size: 16px;
     line-height: 20px;
     width: 400px;
@@ -36,6 +40,15 @@ body {
 }
 .tab .actions a {
     color: hotpink;
+}
+
+
+.textValue {
+    font-size: 12px;
+    margin: 1px;
+    border: 1px solid #E0E0E0;
+    background-color: #F6F6F3;
+    padding: 3px;
 }
 
 /*/////////////*/

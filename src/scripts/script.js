@@ -41,6 +41,10 @@ window.addEventListener('message', function(event) {
             doSetAll(e.target.getAttribute('data-setId'));
         }, false);
 
+        $(_formatActionId('set', 'del', context.sets[i].id)).addEventListener('click', function(e) {
+            doSetDel(e.target.getAttribute('data-setId'));
+        }, false);
+
         for(var j=0; j<context.sets[i].tabs.length; j++) {
 //            console.log(_formatActionId('tab', 'del', context.sets[i].id, j));
             $(_formatActionId('tab', 'del', context.sets[i].id, j)).addEventListener('click', function(e) {
@@ -52,6 +56,11 @@ window.addEventListener('message', function(event) {
             }, false);
         }
     }
+    $('set-add').addEventListener('click', function(e) {
+        if($('set-add-name') && $('set-add-name').value.trim() != '') {
+            doSetAdd($('set-add-name').value.trim());
+        }
+    }, false);
 });
 
 
@@ -138,6 +147,34 @@ function _formatActionId(type, action, setId, tabId) {
 ////////// Controllers
 
 ////////// Page Actions
+
+function doSetAdd(name) {
+    // set 可以重名
+    for(var i=1; localStorage[_formatKey('set', i)]; i++);
+    if(!localStorage[_formatKey('set', i)]) {
+        localStorage[_formatKey('set', i)] = JSON.stringify({
+            id: i,
+            name: name,
+            tabs: [
+                {
+                    url: "http://www.tclh123.com"
+                }
+            ]
+        });
+        updateView();
+    }
+}
+
+function doSetDel(setId) {
+    var key = _formatKey('set', setId);
+    if(localStorage[key]) {
+
+        // alert??
+
+        localStorage.removeItem(key);
+        updateView();
+    }
+}
 
 function doSetPut(setId) {
     var key = _formatKey('set', setId);

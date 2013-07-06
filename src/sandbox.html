@@ -8,15 +8,21 @@
 <!-- template -->
 
 <script id="tpl_list" type="text/x-shotenjin-template">
+    <div>
+        <input type="text" class="textValue" id="set-add-name" size="30" value="" placeholder="create new set" style="max-width:130px">
+        <a href="#" id="set-add"><img src="http://s3.feedly.com/production/16.0/images/checkbox-plus.png" align="absmiddle" style="margin-bottom:4px"></a>
+    </div>
+
     <?js for (var i = 0; i < sets.length; i++) { ?>
     <div class="set">
         <div class="set_title">
-            #{sets[i].name}
+            <input type="text" class="textValue" value="#{sets[i].name}" >
+            <!--#{sets[i].name}-->
             <span class="actions">
                 <a href="#" id="set-all-#{sets[i].id}" data-setId="#{sets[i].id}">All</a>
                 <a href="#" id="set-put-#{sets[i].id}" data-setId="#{sets[i].id}">Put</a>
                 <a href="#" id="set-push-#{sets[i].id}" data-setId="#{sets[i].id}">Push</a>
-                <a href="#">Del</a>
+                <a href="#" id="set-del-#{sets[i].id}" data-setId="#{sets[i].id}">Del</a>
             </span>
         </div>
         <div class="set_content">
@@ -40,8 +46,6 @@
 
     // Set up message event handler:
     window.addEventListener('message', function(event) {
-
-        console.log(template);
 
         var command = event.data.command,
                 template = $(event.data.templateName).innerHTML,
