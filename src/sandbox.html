@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/scripts/lib/shotenjin.js" ></script>
+    <script src="scripts/lib/shotenjin.js" ></script>
 </head>
 <body>
 
@@ -9,14 +9,16 @@
 
 <script id="tpl_list" type="text/x-shotenjin-template">
     <div>
-        <input type="text" class="textValue" id="set-add-name" size="30" value="" placeholder="create new set" style="max-width:130px">
+        <input type="text" class="textValue" id="set-add-name" size="30" value="" placeholder="create new set" style="width:130px">
         <a href="#" id="set-add"><img src="http://s3.feedly.com/production/16.0/images/checkbox-plus.png" align="absmiddle" style="margin-bottom:4px"></a>
     </div>
+
+    <hr />
 
     <?js for (var i = 0; i < sets.length; i++) { ?>
     <div class="set">
         <div class="set_title">
-            <input type="text" id="set-name-#{sets[i].id}" data-setId="#{sets[i].id}" class="textValue" value="#{sets[i].name}" >
+            <input type="text" class="textValue" id="set-name-#{sets[i].id}" data-setId="#{sets[i].id}" value="#{sets[i].name}" style="width:130px">
             <!--#{sets[i].name}-->
             <span class="actions">
                 <a href="#" id="set-all-#{sets[i].id}" data-setId="#{sets[i].id}">All</a>
