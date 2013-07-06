@@ -37,6 +37,8 @@ body {
 }
 .tab a {
     color: #41C8F0; /*blue*/
+
+    display: inline-block; max-width: 300px; white-space: nowrap; overflow: hidden;
 }
 .tab .actions a {
     color: hotpink;

@@ -28,7 +28,7 @@
         <div class="set_content">
             <?js for (var j = 0; j<sets[i].tabs.length; j++) { ?>
                 <div class="tab">
-                    <a target="_blank" href="#{sets[i].tabs[j].url}">#{sets[i].tabs[j].url}</a>
+                    <a target="_blank" href="#{sets[i].tabs[j].url}" title="${sets[i].tabs[j].title}">${sets[i].tabs[j].title}</a>
                     <span class="actions">
                         <a href="#" id="tab-pop-#{sets[i].id}-#{j}" data-setId="#{sets[i].id}" data-tabId="#{j}">Pop</a>
                         <a href="#" id="tab-del-#{sets[i].id}-#{j}" data-setId="#{sets[i].id}" data-tabId="#{j}">Del</a>

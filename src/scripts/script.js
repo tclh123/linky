@@ -74,34 +74,6 @@ window.addEventListener('message', function(event) {
 function init() {
 
     // Test Data TODO: 支持 set的增删，重命名等
-//    var context = {
-//        sets: [
-//            {
-//                id: "1",
-//                name: "一个set",
-//                tabs: [
-//                    {
-//                        url: "http://www.tclh123.com"
-//                    },
-//                    {
-//                        url: "http://www.baidu.com"
-//                    }
-//                ]
-//            },
-//            {
-//                id: "2",
-//                name: "又一个set",
-//                tabs: [
-//                    {
-//                        url: "http://www.tclh123.com"
-//                    },
-//                    {
-//                        url: "http://www.baidu.com"
-//                    }
-//                ]
-//            }
-//        ]
-//    };
 
     if(!localStorage["set$1"]) {
         localStorage["set$1"] = JSON.stringify({
@@ -109,9 +81,11 @@ function init() {
             name: "一个set",
             tabs: [
                 {
+                    title: "泳裤王子",
                     url: "http://www.tclh123.com"
                 },
                 {
+                    title: "百度",
                     url: "http://www.baidu.com"
                 }
             ]
@@ -162,6 +136,7 @@ function doSetAdd(name) {
             name: name,
             tabs: [
                 {
+                    title: "泳裤王子",
                     url: "http://www.tclh123.com"
                 }
             ]
@@ -198,6 +173,7 @@ function doSetPut(setId) {
         var set = JSON.parse(localStorage[key]);
         chrome.tabs.getSelected(null, function(tab) {
             set.tabs.push({
+                title: tab.title,
                 url: tab.url
             });
             localStorage[key] = JSON.stringify(set);
@@ -206,12 +182,14 @@ function doSetPut(setId) {
     }
 }
 
+// TODO: push之后的popup.html 会卡。吧？
 function doSetPush(setId) {
     var key = _formatKey('set', setId);
     if(localStorage[key]) {
         var set = JSON.parse(localStorage[key]);
         chrome.tabs.getSelected(null, function(tab) {
             set.tabs.push({
+                title: tab.title,
                 url: tab.url
             });
             localStorage[key] = JSON.stringify(set);
@@ -238,6 +216,7 @@ function doSetAll(setId) {
                 }
 
                 set.tabs.push({
+                    title: window.tabs[i].title,
                     url: window.tabs[i].url
                 });
                 localStorage[key] = JSON.stringify(set);
