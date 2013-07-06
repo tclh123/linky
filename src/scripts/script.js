@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('message', function(event) {
     var html = event.data.result || "invalid result";
 
-    console.log(html);
+//    console.log(html);
 
     $("container").innerHTML = html;
 
@@ -43,6 +43,11 @@ window.addEventListener('message', function(event) {
 
         $(_formatActionId('set', 'del', context.sets[i].id)).addEventListener('click', function(e) {
             doSetDel(e.target.getAttribute('data-setId'));
+        }, false);
+
+        // set 改名
+        $(_formatActionId('set', 'name', context.sets[i].id)).addEventListener('change', function(e) {
+            doSetRename(e.target.getAttribute('data-setId'), $(_formatActionId('set', 'name', e.target.getAttribute('data-setId'))).value);
         }, false);
 
         for(var j=0; j<context.sets[i].tabs.length; j++) {
@@ -161,6 +166,17 @@ function doSetAdd(name) {
                 }
             ]
         });
+        updateView();
+    }
+}
+
+function doSetRename(setId, newName) {
+//    console.log(setId+'  '+newName);
+    var key = _formatKey('set', setId);
+    if(localStorage[key]) {
+        var set = JSON.parse(localStorage[key]);
+        set.name = newName;
+        localStorage[key] = JSON.stringify(set);
         updateView();
     }
 }

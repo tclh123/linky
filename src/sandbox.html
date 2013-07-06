@@ -16,7 +16,7 @@
     <?js for (var i = 0; i < sets.length; i++) { ?>
     <div class="set">
         <div class="set_title">
-            <input type="text" class="textValue" value="#{sets[i].name}" >
+            <input type="text" id="set-name-#{sets[i].id}" data-setId="#{sets[i].id}" class="textValue" value="#{sets[i].name}" >
             <!--#{sets[i].name}-->
             <span class="actions">
                 <a href="#" id="set-all-#{sets[i].id}" data-setId="#{sets[i].id}">All</a>
