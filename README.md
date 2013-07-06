@@ -15,3 +15,4 @@ You can open them later, or share with others.
 - 其他的，像导出、share什么的。。
 
 
+##ScrShots
